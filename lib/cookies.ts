@@ -1,8 +1,6 @@
-import { CookieOptions } from "next/headers";
-
-export const authCookieOptions: CookieOptions = {
+export const authCookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax",   // 🚨 REQUIRED FOR OAUTH
+  secure: true,
+  sameSite: "lax" as const,
   path: "/",
 };
