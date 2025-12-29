@@ -250,7 +250,7 @@ export default function Home() {
             <div className="flex flex-col space-y-6">
               <div>
                 <h2 className="text-lg font-semibold text-white">Playlist Mapper</h2>
-                <div className="mt-2 text-xs text-[#64748B]">
+                <div className="mt-2 text-xs text-white">
                   <div className="flex items-center">
                     <div className={`w-2 h-2 rounded-full mr-2 ${isLoggedIn ? 'bg-green-500' : 'bg-red-500'}`}></div>
                     <span>{isLoggedIn ? 'Spotify: Connected' : 'Spotify: Not connected'}</span>
@@ -260,18 +260,16 @@ export default function Home() {
               
               <nav className="space-y-2">
                 <Link href="/" className="block py-2 px-3 rounded text-sm text-white bg-[#1E293B]/50">Home</Link>
-                <Link href="/privacy" className="block py-2 px-3 rounded text-sm text-[#94A3B8] hover:text-white hover:bg-[#1E293B]/30 transition-colors">Privacy</Link>
-                <Link href="/terms" className="block py-2 px-3 rounded text-sm text-[#94A3B8] hover:text-white hover:bg-[#1E293B]/30 transition-colors">Terms</Link>
+                <Link href="/privacy" className="block py-2 px-3 rounded text-sm text-white hover:text-white hover:bg-[#1E293B]/30 transition-colors">Privacy</Link>
+                <Link href="/terms" className="block py-2 px-3 rounded text-sm text-white hover:text-white hover:bg-[#1E293B]/30 transition-colors">Terms</Link>
               </nav>
               
-              {isLoggedIn && (
                 <button
                   onClick={handleLogout}
-                  className="mt-4 text-xs text-[#64748B] hover:text-[#94A3B8] transition-colors duration-300"
+                  className="mt-4 text-xs text-white hover:text-gray-300 transition-colors duration-300"
                 >
                   Change Spotify account
                 </button>
-              )}
             </div>
           </div>
           
@@ -282,22 +280,22 @@ export default function Home() {
               <div className="flex justify-between relative">
                 <div className="absolute top-4 left-0 right-0 h-0.5 bg-[#1E293B] -z-10"></div>
                 <div className="flex-1 text-center relative">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 ${isLoggedIn ? 'bg-gradient-purple-pink text-white' : 'bg-[#1E293B] text-[#64748B]'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 ${isLoggedIn ? 'bg-gradient-purple-pink text-white' : 'bg-[#1E293B] text-white'}`}>
                     1
                   </div>
-                  <span className="text-xs text-[#94A3B8]">Connect Spotify</span>
+                  <span className="text-xs text-white">Connect Spotify</span>
                 </div>
                 <div className="flex-1 text-center relative">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 ${(isLoggedIn && tracks.length === 0) ? 'bg-gradient-purple-pink text-white' : tracks.length > 0 ? 'bg-gradient-purple-pink text-white' : 'bg-[#1E293B] text-[#64748B]'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 ${(isLoggedIn && tracks.length === 0) ? 'bg-gradient-purple-pink text-white' : tracks.length > 0 ? 'bg-gradient-purple-pink text-white' : 'bg-[#1E293B] text-white'}`}>
                     2
                   </div>
-                  <span className="text-xs text-[#94A3B8]">Paste Playlist</span>
+                  <span className="text-xs text-white">Paste Playlist</span>
                 </div>
                 <div className="flex-1 text-center relative">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 ${results.size > 0 ? 'bg-gradient-purple-pink text-white' : 'bg-[#1E293B] text-[#64748B]'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 ${results.size > 0 ? 'bg-gradient-purple-pink text-white' : 'bg-[#1E293B] text-white'}`}>
                     3
                   </div>
-                  <span className="text-xs text-[#94A3B8]">Map & Review</span>
+                  <span className="text-xs text-white">Map & Review</span>
                 </div>
               </div>
             </div>
@@ -359,7 +357,7 @@ export default function Home() {
                 
                 {/* Playlist URL input */}
                 <div className="mb-6">
-                  <label className="block text-xs uppercase tracking-wide text-[#64748B] mb-3">
+                  <label className="block text-xs uppercase tracking-wide text-white mb-3">
                     Spotify Playlist URL
                   </label>
                   <div className="relative">
@@ -593,12 +591,12 @@ export default function Home() {
         </div>
         
         {/* Footer */}
-        <footer className="mt-12 text-xs text-[#475569] text-center">
+        <footer className="mt-12 text-xs text-white text-center">
           <p className="mb-3">Links redirect to YouTube. No content hosted.</p>
           <div className="flex justify-center gap-6">
-            <Link href="/privacy" className="hover:text-[#94A3B8] transition-colors duration-300">Privacy</Link>
+            <Link href="/privacy" className="hover:text-gray-300 transition-colors duration-300">Privacy</Link>
             <span>·</span>
-            <Link href="/terms" className="hover:text-[#94A3B8] transition-colors duration-300">Terms</Link>
+            <Link href="/terms" className="hover:text-gray-300 transition-colors duration-300">Terms</Link>
           </div>
         </footer>
       </div>
