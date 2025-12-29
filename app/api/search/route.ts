@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { parse } from 'cookie';
+import { cookies } from 'next/headers';
 import { searchTracks, TrackInput, SearchResult } from '@/lib/youtube';
 import { getCachedResult, setCachedResult } from '@/lib/cache';
 import {
@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify user is authenticated (has refresh token)
-    const cookies = parse(request.headers.get('cookie') || '');
-    if (!cookies.sp_refresh_token) {
+    const cookieStore = await cookies();
+    if (!cookieStore.get('sp_refresh_token')?.value) {
         return NextResponse.json(
             { error: 'auth_expired', message: 'Please login with Spotify first.' },
             { status: 401, headers: { 'X-Request-Id': requestId } }

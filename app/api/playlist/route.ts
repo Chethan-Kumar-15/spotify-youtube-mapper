@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { parse } from 'cookie';
+import { cookies } from 'next/headers';
 import {
     extractPlaylistId,
     fetchPlaylistTracks,
@@ -41,8 +41,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Get refresh token from cookie
-    const cookies = parse(request.headers.get('cookie') || '');
-    const refreshToken = cookies.sp_refresh_token;
+    const cookieStore = await cookies();
+    const refreshToken = cookieStore.get('sp_refresh_token')?.value;
 
     if (!refreshToken) {
         return NextResponse.json(
