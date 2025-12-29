@@ -21,7 +21,7 @@ export interface PlaylistResult {
 /**
  * Create Spotify API client with credentials
  */
-export function createSpotifyApi(): SpotifyWebApi {
+export function createSpotifyClient(): SpotifyWebApi {
     if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
         throw new Error('Missing SPOTIFY_CLIENT_ID or SPOTIFY_CLIENT_SECRET');
     }
@@ -40,7 +40,7 @@ export function createSpotifyApi(): SpotifyWebApi {
 export async function getAccessTokenFromRefresh(
     refreshToken: string
 ): Promise<{ accessToken: string; expiresIn: number }> {
-    const spotifyApi = createSpotifyApi();
+    const spotifyApi = createSpotifyClient();
     spotifyApi.setRefreshToken(refreshToken);
 
     const data = await spotifyApi.refreshAccessToken();
@@ -94,9 +94,6 @@ export async function fetchPlaylistTracks(
     offset: number = 0
 ): Promise<PlaylistResult> {
     const BATCH_SIZE = 50; // Hard cap per PRD 3.10
-
-    const spotifyApi = createSpotifyApi();
-    spotifyApi.setAccessToken(accessToken);
 
     // Get playlist info for total count and name
     const playlistInfo = await spotifyApi.getPlaylist(playlistId, { fields: 'name,tracks.total' });
