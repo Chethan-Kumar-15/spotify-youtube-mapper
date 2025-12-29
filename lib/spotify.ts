@@ -95,6 +95,9 @@ export async function fetchPlaylistTracks(
 ): Promise<PlaylistResult> {
     const BATCH_SIZE = 50; // Hard cap per PRD 3.10
 
+    const spotifyApi = createSpotifyClient();
+    spotifyApi.setAccessToken(accessToken);
+
     // Get playlist info for total count and name
     const playlistInfo = await spotifyApi.getPlaylist(playlistId, { fields: 'name,tracks.total' });
     const total = playlistInfo.body.tracks.total;

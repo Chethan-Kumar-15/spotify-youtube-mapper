@@ -8,20 +8,21 @@ export async function GET(req: Request) {
   const code = searchParams.get("code");
   const state = searchParams.get("state");
 
-  const storedState = cookies().get("sp_state")?.value;
+  const cookieStore = await cookies();
+  const storedState = cookieStore.get("sp_state")?.value;
 
   if (!code || !state || state !== storedState) {
     return new NextResponse("Invalid state", { status: 403 });
   }
 
-  cookies().delete("sp_state");
+  cookieStore.delete("sp_state");
 
   const spotify = createSpotifyClient();
 
   const data = await spotify.authorizationCodeGrant(code);
 
   // ❌ DO NOT STORE ACCESS TOKEN
-  cookies().set(
+  cookieStore.set(
     "sp_refresh_token",
     data.body.refresh_token!,
     authCookieOptions

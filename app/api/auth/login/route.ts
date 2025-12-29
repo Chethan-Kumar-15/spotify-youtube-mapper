@@ -7,7 +7,8 @@ import { authCookieOptions } from "@/lib/cookies";
 export async function GET() {
   const state = crypto.randomBytes(16).toString("hex");
 
-  cookies().set("sp_state", state, authCookieOptions);
+  const cookieStore = await cookies();
+  cookieStore.set("sp_state", state, authCookieOptions);
 
   const spotify = createSpotifyClient();
 
