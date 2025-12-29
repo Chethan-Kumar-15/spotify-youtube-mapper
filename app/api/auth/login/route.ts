@@ -6,7 +6,7 @@ import { authCookieOptions } from "@/lib/cookies";
 export async function GET() {
   const state = crypto.randomBytes(16).toString("hex");
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set("sp_state", state, authCookieOptions);
 
   const params = new URLSearchParams({
