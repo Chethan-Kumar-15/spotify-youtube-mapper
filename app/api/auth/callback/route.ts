@@ -39,7 +39,13 @@ export async function GET(req: Request) {
     cookieStore.set(
       "sp_refresh_token",
       data.body.refresh_token!,
-      authCookieOptions
+      {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+      }
     );
 
     return NextResponse.redirect(baseUrl);
