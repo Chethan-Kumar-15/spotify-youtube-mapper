@@ -4,31 +4,47 @@ import { createSpotifyClient } from "@/lib/spotify";
 import { authCookieOptions } from "@/lib/cookies";
 
 export async function GET(req: Request) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
   const state = searchParams.get("state");
+  const error = searchParams.get("error");
+
+  // Handle Spotify authorization errors
+  if (error) {
+    return NextResponse.redirect(`${baseUrl}?error=${encodeURIComponent(error)}`);
+  }
 
   const cookieStore = await cookies();
   const storedState = cookieStore.get("sp_state")?.value;
 
-  if (!code || !state || state !== storedState) {
-    return new NextResponse("Invalid state", { status: 403 });
+  // Validate state parameter
+  if (!state || !storedState || state !== storedState) {
+    return NextResponse.redirect(`${baseUrl}?error=invalid_state`);
+  }
+
+  // Validate authorization code
+  if (!code) {
+    return NextResponse.redirect(`${baseUrl}?error=missing_code`);
   }
 
   cookieStore.delete("sp_state");
 
   const spotify = createSpotifyClient();
 
-  const data = await spotify.authorizationCodeGrant(code);
+  try {
+    const data = await spotify.authorizationCodeGrant(code);
 
-  // ❌ DO NOT STORE ACCESS TOKEN
-  cookieStore.set(
-    "sp_refresh_token",
-    data.body.refresh_token!,
-    authCookieOptions
-  );
+    // Store ONLY refresh_token
+    cookieStore.set(
+      "sp_refresh_token",
+      data.body.refresh_token!,
+      authCookieOptions
+    );
 
-  return NextResponse.redirect(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/`
-  );
+    return NextResponse.redirect(baseUrl);
+  } catch (err) {
+    console.error('Token exchange failed:', err);
+    return NextResponse.redirect(`${baseUrl}?error=auth_failed`);
+  }
 }
