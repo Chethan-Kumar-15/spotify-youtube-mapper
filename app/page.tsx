@@ -322,13 +322,15 @@ export default function Home() {
                     Connect Spotify securely
                   </button>
                   
-                  <p className="mt-4 text-xs text-[#64748B]">
+                  <p className="mt-4 text-xs text-slate-300">
                     Uses Spotify OAuth. Read-only, no tokens stored client-side. <Link href="/privacy" className="text-[#38BDF8] hover:underline">Learn more</Link>
                   </p>
                 </div>
                 
                 {/* How it works section */}
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="mt-12">
+                  <h2 className="text-lg font-semibold text-white mb-4">How it works</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
                     <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">1</div>
                     <h3 className="font-medium text-white mb-1">Connect</h3>
@@ -344,6 +346,7 @@ export default function Home() {
                     <h3 className="font-medium text-white mb-1">Get links</h3>
                     <p className="text-xs text-[#94A3B8]">Receive YouTube links for all tracks</p>
                   </div>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -351,7 +354,7 @@ export default function Home() {
                 <div className="mb-6 pb-4 border-b border-[#1E293B]">
                   <div className="flex justify-between items-center">
                     <h2 className="text-xl font-semibold text-white">Playlist Mapper</h2>
-                    <span className="text-xs text-[#64748B]">✓ Connected to Spotify</span>
+                    <span className="text-xs text-slate-300">✓ Connected to Spotify</span>
                   </div>
                 </div>
                 
@@ -377,7 +380,7 @@ export default function Home() {
                       {phase === 'fetching_playlist' ? 'Fetching...' : 'Start mapping'}
                     </button>
                   </div>
-                  <p className="mt-2 text-xs text-[#64748B]">
+                  <p className="mt-2 text-xs text-slate-300">
                     Example: https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M
                   </p>
                 </div>
@@ -385,7 +388,7 @@ export default function Home() {
                 {/* Progress visualization */}
                 {progress.total > 0 && (phase === 'fetching_playlist' || phase === 'matching_youtube' || phase === 'completed') && (
                   <div className="mb-6">
-                    <div className="flex justify-between text-xs text-[#64748B] mb-2">
+                    <div className="flex justify-between text-xs text-slate-300 mb-2">
                       <span>Processed {progress.current} of {progress.total} tracks</span>
                       <span>{Math.round((progress.current / progress.total) * 100)}%</span>
                     </div>
@@ -395,7 +398,7 @@ export default function Home() {
                         style={{ width: `${(progress.current / progress.total) * 100}%` }}
                       />
                     </div>
-                    <div className="mt-2 text-xs text-[#64748B] flex justify-between">
+                    <div className="mt-2 text-xs text-slate-300 flex justify-between">
                       <span>Batch {Math.ceil(progress.current / 50)} of {Math.ceil(progress.total / 50)}</span>
                       <span className={`px-2 py-0.5 rounded ${phase === 'fetching_playlist' ? 'bg-blue-900/30 text-blue-400' : phase === 'matching_youtube' ? 'bg-purple-900/30 text-purple-400' : 'bg-green-900/30 text-green-400'}`}>
                         {phase === 'fetching_playlist' ? 'Fetching playlist' : phase === 'matching_youtube' ? 'Searching YouTube' : 'Done'}
@@ -440,7 +443,7 @@ export default function Home() {
                     <div className="max-h-96 overflow-y-auto">
                       <table className="w-full text-sm">
                         <thead className="sticky top-0 bg-[#0B1120]">
-                          <tr className="text-[#64748B] text-xs uppercase tracking-wide">
+                          <tr className="text-slate-300 text-xs uppercase tracking-wide">
                             <th className="text-left px-4 py-3 font-medium">#</th>
                             <th className="text-left px-4 py-3 font-medium">Track</th>
                             <th className="text-left px-4 py-3 font-medium">YouTube</th>
