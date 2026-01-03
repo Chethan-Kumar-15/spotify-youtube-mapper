@@ -74,9 +74,10 @@ function normalizeTitleForMatching(title: string): string {
 function parseDuration(timestamp: string): number {
     if (!timestamp) return 0;
     const parts = timestamp.split(':').map(Number);
+    // Guard against NaN from malformed input
+    if (parts.some(isNaN)) return 0;
     return parts.reduce((acc, val) => acc * 60 + val, 0);
 }
-
 /**
  * Check if YouTube duration matches Spotify duration within tolerance
  */

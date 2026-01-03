@@ -37,6 +37,7 @@ export default function Privacy() {
                                     <li>✅ Read-only access to Spotify playlists (names/artists/duration)</li>
                                     <li>✅ No storage of login credentials or personal profile data</li>
                                     <li>✅ Automated matching results are processed in-memory</li>
+                                    <li>✅ Technical data (IP/timestamps) collected for security/debugging</li>
                                     <li>✅ Not affiliated with Spotify or YouTube</li>
                                     <li>✅ Your data rights (GDPR/India IT Rules) are fully respected</li>
                                 </ul>
@@ -57,8 +58,7 @@ export default function Privacy() {
                                     <ul className="list-disc list-inside space-y-1 mt-2 ml-4 text-[#94A3B8]">
                                         <li>Spotify playlist URLs</li>
                                         <li>Spotify track metadata retrieved via public APIs, including:
-                                            <ul className="list-circle list-inside ml-6 mt-1">
-                                                <li>Track name</li>
+                                            <ul className="list-disc list-inside ml-6 mt-1">                                                <li>Track name</li>
                                                 <li>Artist name(s)</li>
                                                 <li>Track duration</li>
                                             </ul>
@@ -68,77 +68,69 @@ export default function Privacy() {
 
                                     <p className="mt-4 font-medium">We <span className="text-white">do not</span> collect:</p>
                                     <ul className="list-disc list-inside space-y-1 mt-2 ml-4 text-[#94A3B8]">
-                                        <li>Spotify login credentials</li>
-                                        <li>YouTube login credentials</li>
+                                        <li>Spotify or YouTube account passwords</li>
                                         <li>Payment information</li>
                                         <li>Personal identifiers such as name, email, or phone number (unless explicitly provided for support)</li>
                                     </ul>
 
-                                    <h3 className="text-lg font-medium text-white mt-4 mb-2">2.2 Automatically Collected Information</h3>
-                                    <p>We may automatically collect limited technical data, such as:</p>
-                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li>IP address</li>
-                                        <li>Browser type</li>
-                                        <li>Device type</li>
-                                        <li>Request timestamps</li>
-                                        <li>Error and performance logs</li>
+                                    <h3 className="text-lg font-medium text-white mt-6 mb-2">2.2 OAuth Tokens and Authentication</h3>
+                                    <p>Our Service uses the official Spotify OAuth 2.0 protocol to authenticate users and fetch playlist data. Please note the following important details regarding token handling:</p>
+                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4 text-[#94A3B8]">
+                                        <li><span className="font-medium text-white">Requirement:</span> Authentication is required to access the Service, including metadata for both public and private playlists, to ensure consistent and secure data retrieval.</li>
+                                        <li><span className="font-medium text-white">Requested Scopes:</span> We request limited, read-only access with the following scopes: <code className="text-white text-xs">playlist-read-private</code> and <code className="text-white text-xs">playlist-read-collaborative</code>. We cannot create, delete, or modify your library.</li>
+                                        <li><span className="font-medium text-white">Token Disclosure:</span> Upon authentication, we receive an <span className="italic">access token</span> (short-lived) and a <span className="italic">refresh token</span> (long-lived). We consider these tokens as <span className="font-medium text-white">credentials</span> and protect them with high security.</li>
+                                        <li><span className="font-medium text-white">Storage Method:</span> Tokens are stored exclusively in your browser as secure, <code className="text-white text-xs">httpOnly</code>, <code className="text-white text-xs">secure</code>, and <code className="text-white text-xs">SameSite: Lax</code> cookies. We <span className="font-medium text-white">do not store</span> these tokens in an external database or server-side persistent storage.</li>
+                                        <li><span className="font-medium text-white">Storage Duration:</span> Access tokens are transient and expire within 1 hour. Refresh tokens are stored for <span className="font-medium text-white">30 days</span> to provide a seamless experience without requiring daily logins.</li>
+                                        <li><span className="font-medium text-white">Expiration and Deletion:</span> Tokens are automatically rotated upon use. You can force immediate deletion of all tokens from your browser by clicking the <span className="font-medium text-white">&quot;Log out&quot;</span> button.</li>
                                     </ul>
-                                    <p className="mt-2">This data is used solely for security, debugging, and performance optimization.</p>
+
+                                    <h3 className="text-lg font-medium text-white mt-6 mb-2">2.3 Automatically Collected Information</h3>
+                                    <p>We automatically collect limited technical data. Under the GDPR, certain identifiers such as IP addresses (when combined with other data) may be classified as <span className="font-medium text-white">Personal Identifiable Information (PII)</span>.</p>
+                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
+                                        <li><span className="font-medium text-white">Data types:</span> IP address, request timestamps, browser and device metadata.</li>
+                                        <li><span className="font-medium text-white">Legal Basis:</span> Processing is based on our <span className="font-medium text-white">Legitimate Interests</span> (maintaining security, debugging errors, and preventing abuse). See Section 11 for details.</li>
+                                        <li><span className="font-medium text-white">Retention Period:</span> This technical data is stored in server logs for a maximum of <span className="font-medium text-white">30 days</span>, after which it is automatically deleted or anonymized.</li>
+                                    </ul>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">3. How We Use Your Information</h2>
                                     <p>We use collected information only to:</p>
                                     <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li>Fetch public Spotify playlist data</li>
+                                        <li>Fetch Spotify playlist metadata via secure OAuth tokens</li>
                                         <li>Search YouTube for corresponding music videos</li>
-                                        <li>Apply automated matching algorithms (fuzzy title matching, duration comparison, artist verification)</li>
-                                        <li>Generate confidence scores (HIGH / MEDIUM / LOW)</li>
-                                        <li>Improve accuracy, reliability, and performance of the Service</li>
-                                        <li>Debug errors and analyze mismatches (optional debug mode)</li>
+                                        <li>Apply automated matching algorithms (fuzzy matching, duration comparison)</li>
+                                        <li>Generate confidence scores and debug mismatch logs (if enabled)</li>
                                     </ul>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">4. Algorithmic Matching Disclaimer</h2>
-                                    <p>Video matching is performed <span className="font-medium text-white">automatically</span> using heuristic and probabilistic methods. We <span className="font-medium text-white">do not guarantee</span> that all matches are exact, official, or error-free.</p>
-                                    <p className="mt-2">Low-confidence matches may require manual user verification.</p>
+                                    <p>Video matching is performed <span className="font-medium text-white">automatically</span> using heuristic methods. We <span className="font-medium text-white">do not guarantee</span> that all matches are exact or official.</p>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">5. Data Storage and Retention</h2>
                                     <ul className="list-disc list-inside space-y-1 ml-4">
-                                        <li>Playlist URLs and matching results may be temporarily processed in memory.</li>
-                                        <li>We do <span className="font-medium text-white">not</span> permanently store Spotify playlists or YouTube results unless explicitly stated.</li>
-                                        <li>Debug logs (if enabled) may be retained for a limited period for quality improvement.</li>
+                                        <li><span className="font-medium text-white">In-Memory Processing:</span> Playlist metadata and matching results are processed temporarily in memory.</li>
+                                        <li><span className="font-medium text-white">No Database Storage:</span> We do <span className="font-medium text-white">not</span> store your Spotify playlists, search history, or personal results on our servers.</li>
+                                        <li><span className="font-medium text-white">Log retention:</span> Debug logs (if enabled) are retained for a maximum of 30 days for quality improvement.</li>
                                     </ul>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">6. Third-Party Services</h2>
-                                    <p>The Service interacts with:</p>
-                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li><span className="font-medium text-white">Spotify</span> (public metadata APIs)</li>
-                                        <li><span className="font-medium text-white">YouTube</span> (search results and public video metadata)</li>
-                                    </ul>
-                                    <p className="mt-3">We are <span className="font-medium text-white">not affiliated with, endorsed by, or sponsored by Spotify or YouTube</span>.</p>
-                                    <p className="mt-2">Your use of Spotify and YouTube is subject to their respective terms and privacy policies.</p>
+                                    <p>The Service interacts with <span className="font-medium text-white">Spotify</span> and <span className="font-medium text-white">YouTube</span>. We are <span className="font-medium text-white">not affiliated with, endorsed by, or sponsored by</span> these services. Your use is subject to their respective policies.</p>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">7. Cookies</h2>
-                                    <p>If cookies or similar technologies are used, they are limited to:</p>
-                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li>Session management</li>
-                                        <li>Basic analytics</li>
-                                    </ul>
-                                    <p className="mt-2">No tracking cookies or advertising cookies are used without consent.</p>
+                                    <p>Cookies are used exclusively for session management (OAuth refresh tokens) and basic site analytics. No advertising or cross-site tracking cookies are used.</p>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">8. Data Security</h2>
-                                    <p>We implement reasonable technical and organizational measures to protect data from unauthorized access, misuse, or disclosure.</p>
-                                    <p className="mt-2">However, no internet-based service is completely secure, and we cannot guarantee absolute security.</p>
+                                    <p>We implement reasonable technical measures to protect data. However, no internet-based service is completely secure, and we cannot guarantee absolute security.</p>
                                 </section>
 
                                 <section>
@@ -150,7 +142,7 @@ export default function Privacy() {
                                     <h2 className="text-xl font-semibold text-white mb-3">10. Revoking Access</h2>
                                     <p>You can revoke access at any time by:</p>
                                     <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li>Clicking the &quot;Change Spotify account&quot; button in the app</li>
+                                        <li>Clicking the &quot;Log out&quot; or &quot;Change account&quot; button</li>
                                         <li>Visiting{' '}
                                             <a
                                                 href="https://www.spotify.com/account/apps/"
@@ -164,44 +156,29 @@ export default function Privacy() {
                                     </ul>
                                 </section>
 
-
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">11. International Users (GDPR & India IT Rules)</h2>
+                                    <h3 className="text-lg font-medium text-white mt-4 mb-2">For EU Users (GDPR)</h3>
+                                    <p>You have the right to access, rectify, or erase your data. Processing is based on <span className="font-medium text-white">Legitimate Interests</span> for providing the requested service. Session data is deleted upon logout.</p>
 
-                                    <h3 className="text-lg font-medium text-white mt-4 mb-2">For European Union Users (GDPR)</h3>
-                                    <p>Under the General Data Protection Regulation (GDPR), you have the following rights:</p>
-                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li><span className="font-medium text-white">Right to Access:</span> Request a copy of data we hold about you</li>
-                                        <li><span className="font-medium text-white">Right to Rectification:</span> Request correction of inaccurate data</li>
-                                        <li><span className="font-medium text-white">Right to Erasure:</span> Request deletion of your data</li>
-                                        <li><span className="font-medium text-white">Right to Object:</span> Object to processing of your data</li>
-                                        <li><span className="font-medium text-white">Data Portability:</span> Receive your data in a structured format</li>
-                                    </ul>
-                                    <p className="mt-3">Legal basis for processing: <span className="font-medium text-white">Legitimate interests</span> (providing the service you requested)</p>
-                                    <p className="mt-2">Data retention: Session data is deleted when you log out. No long-term personal data storage.</p>
-
-                                    <h3 className="text-lg font-medium text-white mt-4 mb-2">For Indian Users (IT Rules 2021)</h3>
-                                    <p>In compliance with India&apos;s Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021:</p>
-                                    <ul className="list-disc list-inside space-y-1 mt-2 ml-4">
-                                        <li>We act as an intermediary providing automated search/linking services</li>
-                                        <li>We do not host, store, or modify user-generated content</li>
-                                        <li>We do not exercise editorial control over search results</li>
-                                        <li>Grievance redressal mechanism available through support channels</li>
-                                    </ul>
-                                    <p className="mt-3">Data localization: Technical data may be processed on servers outside India for performance optimization.</p>
+                                    <h3 className="text-lg font-medium text-white mt-6 mb-2">For Indian Users (IT Rules 2021)</h3>
+                                    <p>We act as an intermediary providing automated search/linking services. We do not host, store, or modify user-generated content. Grievance redressal is available below.</p>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">12. Changes to This Policy</h2>
-                                    <p>We may update this Privacy Policy periodically. Continued use of the Service after changes constitutes acceptance of the revised policy.</p>
+                                    <p>We may update this Privacy Policy periodically. Continued use constitutes acceptance of the revised policy.</p>
                                 </section>
 
                                 <section>
                                     <h2 className="text-xl font-semibold text-white mb-3">13. Contact</h2>
-                                    <p>For privacy-related questions or requests, please contact us through the application support channels.</p>
-                                    <p className="mt-2"><span className="font-medium text-white">EU Representative:</span> For GDPR-related inquiries, contact us specifying &quot;GDPR Request&quot;</p>
-                                    <p className="mt-1"><span className="font-medium text-white">India Grievance Officer:</span> For IT Rules compliance, contact us specifying &quot;India Grievance&quot;</p>
-                                </section>
+                                    <p>For privacy-related questions or requests, please contact us at: <a href="mailto:privacy@yourcompany.com" className="text-[#38BDF8] hover:underline">privacy@yourcompany.com</a></p>
+                                    <div className="mt-4 p-4 bg-[#1E293B]/30 rounded-lg border border-glass">
+                                        <p className="font-medium text-white">India Grievance Officer:</p>
+                                        <p className="mt-1 text-sm text-[#94A3B8]">Name: [Actual Officer Name]</p>
+                                        <p className="text-sm text-[#94A3B8]">Email: <a href="mailto:grievance@yourcompany.com" className="text-[#38BDF8] hover:underline">grievance@yourcompany.com</a></p>
+                                        <p className="text-sm text-[#94A3B8]">Address: [Complete Physical Address with Pincode]</p>
+                                    </div>                                </section>
                             </div>
                         </div>
                     </div>

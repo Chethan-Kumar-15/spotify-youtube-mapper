@@ -150,15 +150,14 @@ export default function Terms() {
                                     <ol className="list-decimal list-inside space-y-1 mt-2 ml-4">
                                         <li>Contact YouTube directly (content is hosted there, not here)</li>
                                         <li>If the link itself violates your rights, submit a DMCA notice including:
-                                            <ul className="list-circle list-inside ml-6 mt-1 text-sm">
+                                            <ul className="list-disc list-inside ml-6 mt-1 text-sm">
                                                 <li>Identification of the copyrighted work</li>
                                                 <li>URL of the allegedly infringing link</li>
                                                 <li>Your contact information</li>
                                                 <li>Statement of good faith belief</li>
                                                 <li>Statement of accuracy and authority</li>
                                                 <li>Physical or electronic signature</li>
-                                            </ul>
-                                        </li>
+                                            </ul>                                        </li>
                                     </ol>
                                     <p className="mt-3">We will respond within 72 hours to valid DMCA notices.</p>
 
