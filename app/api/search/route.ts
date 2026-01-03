@@ -59,6 +59,15 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Validate track structure (name and artists are required, duration_ms is optional)
+        const invalidTrack = tracks.find(t => !t.name || !t.artists);
+        if (invalidTrack) {
+            return NextResponse.json(
+                { error: 'bad_request', message: 'Each track must have name and artists fields.' },
+                { status: 400, headers: { 'X-Request-Id': requestId } }
+            );
+        }
+
         // Enforce batch size limit (PRD 3.10)
         if (tracks.length > MAX_BATCH_SIZE) {
             return NextResponse.json(

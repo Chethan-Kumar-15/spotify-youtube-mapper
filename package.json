@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cookie": "^1.1.1",
+    "fuzzball": "^2.2.3",
     "next": "16.1.1",
     "p-limit": "^7.2.0",
     "react": "19.2.3",

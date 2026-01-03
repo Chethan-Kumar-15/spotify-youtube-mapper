@@ -178,7 +178,11 @@ export default function Home() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            tracks: batch.map(t => ({ name: t.name, artists: t.artists }))
+            tracks: batch.map(t => ({
+              name: t.name,
+              artists: t.artists,
+              duration_ms: t.duration_ms  // Add duration for better matching
+            }))
           }),
         });
 
@@ -241,7 +245,7 @@ export default function Home() {
     <div className="min-h-screen bg-dark-navy text-[#E5E7EB] font-[Inter,ui-sans-serif,system-ui] relative overflow-hidden">
       {/* Animated background particles */}
       <div ref={particlesRef} className="fixed inset-0 z-0"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 py-6 relative z-10">
         {/* Three-panel layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_300px] gap-6">
@@ -257,22 +261,22 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
+
               <nav className="space-y-2">
                 <Link href="/" className="block py-2 px-3 rounded text-sm text-white bg-[#1E293B]/50">Home</Link>
                 <Link href="/privacy" className="block py-2 px-3 rounded text-sm text-white hover:text-white hover:bg-[#1E293B]/30 transition-colors">Privacy</Link>
                 <Link href="/terms" className="block py-2 px-3 rounded text-sm text-white hover:text-white hover:bg-[#1E293B]/30 transition-colors">Terms</Link>
               </nav>
-              
-                <button
-                  onClick={handleLogout}
-                  className="mt-4 text-xs text-white hover:text-gray-300 transition-colors duration-300"
-                >
-                  Change Spotify account
-                </button>
+
+              <button
+                onClick={handleLogout}
+                className="mt-4 text-xs text-white hover:text-gray-300 transition-colors duration-300"
+              >
+                Change Spotify account
+              </button>
             </div>
           </div>
-          
+
           {/* Center main content */}
           <div className="lg:col-span-1">
             {/* Stepper */}
@@ -299,14 +303,14 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            
+
             {/* Main content based on auth state */}
             {!isLoggedIn ? (
               <div className="bg-glass border-glass rounded-xl p-6">
                 <div className="text-center py-8">
                   <h1 className="text-2xl font-bold text-white mb-3">Spotify → YouTube Playlist Mapper</h1>
                   <p className="text-[#94A3B8] mb-8">Map tracks safely, in batches, with transparent results.</p>
-                  
+
                   <button
                     onClick={handleLogin}
                     disabled={phase === 'authenticating'}
@@ -321,31 +325,31 @@ export default function Home() {
                     )}
                     Connect Spotify securely
                   </button>
-                  
+
                   <p className="mt-4 text-xs text-slate-300">
                     Uses Spotify OAuth. Read-only, no tokens stored client-side. <Link href="/privacy" className="text-[#38BDF8] hover:underline">Learn more</Link>
                   </p>
                 </div>
-                
+
                 {/* How it works section */}
                 <div className="mt-12">
                   <h2 className="text-lg font-semibold text-white mb-4">How it works</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
-                    <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">1</div>
-                    <h3 className="font-medium text-white mb-1">Connect</h3>
-                    <p className="text-xs text-[#94A3B8]">Securely connect your Spotify account</p>
-                  </div>
-                  <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
-                    <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">2</div>
-                    <h3 className="font-medium text-white mb-1">Paste playlist</h3>
-                    <p className="text-xs text-[#94A3B8]">Enter your Spotify playlist URL</p>
-                  </div>
-                  <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
-                    <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">3</div>
-                    <h3 className="font-medium text-white mb-1">Get links</h3>
-                    <p className="text-xs text-[#94A3B8]">Receive YouTube links for all tracks</p>
-                  </div>
+                    <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
+                      <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">1</div>
+                      <h3 className="font-medium text-white mb-1">Connect</h3>
+                      <p className="text-xs text-[#94A3B8]">Securely connect your Spotify account</p>
+                    </div>
+                    <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
+                      <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">2</div>
+                      <h3 className="font-medium text-white mb-1">Paste playlist</h3>
+                      <p className="text-xs text-[#94A3B8]">Enter your Spotify playlist URL</p>
+                    </div>
+                    <div className="text-center p-4 bg-[#0B1120]/50 rounded-lg">
+                      <div className="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center mx-auto mb-3">3</div>
+                      <h3 className="font-medium text-white mb-1">Get links</h3>
+                      <p className="text-xs text-[#94A3B8]">Receive YouTube links for all tracks</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -357,7 +361,7 @@ export default function Home() {
                     <span className="text-xs text-slate-300">✓ Connected to Spotify</span>
                   </div>
                 </div>
-                
+
                 {/* Playlist URL input */}
                 <div className="mb-6">
                   <label className="block text-xs uppercase tracking-wide text-white mb-3">
@@ -384,7 +388,7 @@ export default function Home() {
                     Example: https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M
                   </p>
                 </div>
-                
+
                 {/* Progress visualization */}
                 {progress.total > 0 && (phase === 'fetching_playlist' || phase === 'matching_youtube' || phase === 'completed') && (
                   <div className="mb-6">
@@ -406,7 +410,7 @@ export default function Home() {
                     </div>
                   </div>
                 )}
-                
+
                 {/* Playlist Info */}
                 {tracks.length > 0 && phase !== 'fetching_playlist' && (
                   <div className="mb-6 p-4 border border-[#1E293B] rounded-lg bg-[#0B1120]/50">
@@ -424,7 +428,7 @@ export default function Home() {
                     )}
                   </div>
                 )}
-                
+
                 {/* Activity Log */}
                 {logs.length > 0 && (
                   <div className="mb-6 p-4 bg-[#020617] border border-[#1E293B] rounded font-mono text-xs max-h-32 overflow-y-auto">
@@ -433,7 +437,7 @@ export default function Home() {
                     ))}
                   </div>
                 )}
-                
+
                 {/* Results */}
                 {results.size > 0 && (
                   <div className="border border-[#1E293B] rounded-lg overflow-hidden">
@@ -483,11 +487,18 @@ export default function Home() {
                                 </td>
                                 <td className="px-4 py-3">
                                   <span className="text-xs text-[#64748B]">
-                                    {result?.reason === 'no_results' ? 'No results' : 
-                                     result?.reason === 'negative_keyword' ? 'Filtered: karaoke, cover, etc.' : 
-                                     result?.reason === 'low_confidence' ? 'Low confidence' : 
-                                     'Exact match'}
+                                    {result?.reason === 'no_results' ? 'No results' :
+                                      result?.reason === 'negative_keyword' ? 'Filtered: karaoke, cover, etc.' :
+                                        result?.reason === 'low_confidence' ? 'Low confidence match' :
+                                          result?.reason === 'no_match' ? 'Score too low' :
+                                            result?.reason === 'search_error' ? 'Search failed' :
+                                              'Exact match'}
                                   </span>
+                                  {result?.confidence === 'LOW' && result?.youtubeUrl && (
+                                    <div className="text-amber-400 text-xs mt-1">
+                                      ⚠️ Verify before using
+                                    </div>
+                                  )}
                                 </td>
                               </tr>
                             );
@@ -497,7 +508,7 @@ export default function Home() {
                     </div>
                   </div>
                 )}
-                
+
                 {/* Empty State */}
                 {!tracks.length && phase === 'idle' && !error && (
                   <div className="text-center py-8">
@@ -509,7 +520,7 @@ export default function Home() {
               </div>
             )}
           </div>
-          
+
           {/* Right results panel */}
           <div className="lg:col-span-1 space-y-6">
             {/* Progress stats */}
@@ -528,7 +539,7 @@ export default function Home() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-3 text-center">
                   <div className="bg-[#0B1120]/50 p-3 rounded">
                     <div className="text-lg font-semibold text-white">{progress.current}</div>
@@ -539,7 +550,7 @@ export default function Home() {
                     <div className="text-xs text-[#64748B]">Total</div>
                   </div>
                 </div>
-                
+
                 {results.size > 0 && (
                   <div className="grid grid-cols-2 gap-3 text-center">
                     <div className="bg-[#0B1120]/50 p-3 rounded">
@@ -558,7 +569,7 @@ export default function Home() {
                 )}
               </div>
             </div>
-            
+
             {/* How it works - visible only when not logged in */}
             {!isLoggedIn && (
               <div className="bg-glass border-glass rounded-xl p-4">
@@ -579,7 +590,7 @@ export default function Home() {
                 </div>
               </div>
             )}
-            
+
             {/* Batch info - visible when processing */}
             {progress.total > 0 && (
               <div className="bg-glass border-glass rounded-xl p-4">
@@ -592,7 +603,7 @@ export default function Home() {
             )}
           </div>
         </div>
-        
+
         {/* Footer */}
         <footer className="mt-12 text-xs text-white text-center">
           <p className="mb-3">Links redirect to YouTube. No content hosted.</p>
