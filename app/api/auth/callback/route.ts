@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   }
 
   const cookieStore = await cookies();
-  const storedState = cookieStore.get("sp_state")?.value;
+  const storedState = cookieStore.get("sp_oauth_state")?.value;
 
   // Validate state parameter
   if (!state || !storedState || state !== storedState) {
@@ -27,7 +27,7 @@ export async function GET(req: Request) {
     return NextResponse.redirect(`${baseUrl}?error=missing_code`);
   }
 
-  cookieStore.delete("sp_state");
+  cookieStore.delete("sp_oauth_state");
 
   const spotify = createSpotifyClient();
 

@@ -6,10 +6,10 @@ export async function GET() {
   const state = crypto.randomBytes(16).toString("hex");
 
   const cookieStore = await cookies();
-  cookieStore.set("sp_state", state, {
+  cookieStore.set("sp_oauth_state", state, {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
     path: "/",
     maxAge: 60 * 5, // 5 minutes
   });
